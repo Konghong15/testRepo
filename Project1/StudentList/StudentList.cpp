@@ -3,13 +3,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <crtdbg.h>
 
-#include "Student.h"
+#include "StudentList.h"
 
-void Finalize(manager_t* manager)
+void Finalize(studentList_t* studentList)
 {
-	student_t* phead = manager->head;
+	student_t* phead = studentList->head;
 
 	while (phead != NULL)
 	{
@@ -19,15 +18,15 @@ void Finalize(manager_t* manager)
 	}
 }
 
-void InsertLast(manager_t* manager, student_t* node)
+void InsertLast(studentList_t* studentList, student_t* node)
 {
-	student_t** ppHead = &manager->head;
-	student_t** ppLast = &manager->lastNode;
+	student_t** ppHead = &studentList->head;
+	student_t** ppLast = &studentList->lastNode;
 
 	if (*ppHead == NULL)
 	{
 		*ppHead = node;
-		manager->lastNode = *ppHead;
+		studentList->lastNode = *ppHead;
 	}
 	else
 	{
@@ -36,15 +35,14 @@ void InsertLast(manager_t* manager, student_t* node)
 	}
 }
 
-void InsertFront(manager_t* manager, student_t* node)
+void InsertFront(studentList_t* studentList, student_t* node)
 {
-	student_t** ppHead = &manager->head;
+	student_t** ppHead = &studentList->head;
 
-	_ASSERT(true);
 	if (ppHead == NULL)
 	{
 		*ppHead = node;
-		manager->lastNode = *ppHead;
+		studentList->lastNode = *ppHead;
 	}
 	else
 	{
@@ -54,10 +52,10 @@ void InsertFront(manager_t* manager, student_t* node)
 	}
 }
 
-bool removeLast(manager_t* manager)
+bool removeLast(studentList_t* studentList)
 {
-	student_t* pHead = manager->head;
-	student_t* pLast = manager->lastNode;
+	student_t* pHead = studentList->head;
+	student_t* pLast = studentList->lastNode;
 
 	if (pHead == NULL)
 	{
@@ -75,9 +73,9 @@ bool removeLast(manager_t* manager)
 	return true;
 }
 
-bool removeFront(manager_t* manager)
+bool removeFront(studentList_t* studentList)
 {
-	student_t** ppHead = &manager->head;
+	student_t** ppHead = &studentList->head;
 	student_t* next = (*ppHead)->next;
 
 	if (*ppHead == NULL)
@@ -91,9 +89,9 @@ bool removeFront(manager_t* manager)
 	return true;
 }
 
-bool removeNode(manager_t* manager, student_t* node)
+bool removeNode(studentList_t* studentList, student_t* node)
 {
-	student_t* pHead = manager->head;
+	student_t* pHead = studentList->head;
 
 	if (pHead == NULL)
 	{
@@ -115,9 +113,9 @@ void PrintNode(const student_t* node)
 	printf("%s %d", node->name, node->score);
 }
 
-void PrintAll(const manager_t* manager)
+void PrintAll(const studentList_t* studentList)
 {
-	student_t* phead = manager->head;
+	student_t* phead = studentList->head;
 
 	while (phead != NULL)
 	{
@@ -126,7 +124,7 @@ void PrintAll(const manager_t* manager)
 	}
 }
 
-void LoadData(const char* fileName, manager_t* manager)
+void LoadData(const char* fileName, studentList_t* studentList)
 {
 	FILE* stream;
 	char buf[1024];
@@ -157,17 +155,17 @@ void LoadData(const char* fileName, manager_t* manager)
 			temp->score = score;
 			temp->next = NULL;
 
-			InsertLast(manager, temp);
+			InsertLast(studentList, temp);
 		}
 	}
 
 	fclose(stream);
 }
 
-void SaveData(const char* fileName, const manager_t* manager)
+void SaveData(const char* fileName, const studentList_t* studentList)
 {
 	FILE* stream;
-	student_t* phead = manager->head;
+	student_t* phead = studentList->head;
 
 	stream = fopen(fileName, "w");
 

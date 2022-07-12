@@ -3,11 +3,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "Student.h"
+
+#include "StudentList.h"
 
 int main(void)
 {
-	manager_t manager = { 0, };
+	studentList_t studentList = { 0, };
 
 	student_t* s1 = (student_t*)malloc(sizeof(student_t));
 	strcpy(s1->name, "ABC");
@@ -34,24 +35,25 @@ int main(void)
 	s5->score = 55;
 	s5->next = NULL;
 
-	InsertLast(&manager, s1);
-	InsertLast(&manager, s2);
-	InsertLast(&manager, s3);
-	InsertLast(&manager, s4);
-	InsertLast(&manager, s5);
+	InsertLast(&studentList, s1);
+	InsertLast(&studentList, s2);
+	InsertLast(&studentList, s3);
+	InsertLast(&studentList, s4);
+	InsertLast(&studentList, s5);
 
-	removeFront(&manager);
-	removeLast(&manager);
-	removeNode(&manager, s3);
+	removeFront(&studentList);
+	removeLast(&studentList);
+	removeNode(&studentList, s3);
 
-	SaveData("studentInfo.txt", &manager);
+	SaveData("studentInfo.txt", &studentList);
 
-	manager_t srcManger = { 0, };
-	LoadData("studentInfo.txt", &srcManger);
+	studentList_t srcStudentList = { 0, };
+	LoadData("studentInfo.txt", &srcStudentList);
 
-	PrintAll(&srcManger);
+	PrintAll(&srcStudentList);
 	
-	Finalize(&manager);
+	Finalize(&studentList);
+	Finalize(&srcStudentList);
 
 	return 0;
 }
