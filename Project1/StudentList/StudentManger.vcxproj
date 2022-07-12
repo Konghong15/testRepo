@@ -74,12 +74,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>E:\temp\Project1\out\debug\</OutDir>
-    <IntDir>E:\temp\Project1\out\debug\StudentManger\</IntDir>
+    <IntDir>E:\temp\Project1\out\debug\StudentList\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>E:\temp\Project1\out\debug\</OutDir>
-    <IntDir>E:\temp\Project1\out\debug\StudentManger\</IntDir>
+    <IntDir>E:\temp\Project1\out\debug\StudentList\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>

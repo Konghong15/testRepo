@@ -6,44 +6,98 @@
 
 #include "StudentList.h"
 
+student_t* GetStudentMalloc(const char name[4], int score)
+{
+	student_t* student = (student_t*)malloc(sizeof(student_t));
+
+	strncpy(student->name, name, 4);
+	student->name[3] = '\0';
+	student->score = score;
+	student->next = NULL;
+
+	return student;
+}
+
 int main(void)
 {
 	studentList_t studentList = { 0, };
+	student_t* students[5];
+	char name[4];
+	int score;
+	
+	{
+		score = 0;
+		strcpy(name, "AAA");
+		for (int i = 0; i < 5; ++i)
+		{
+			++name[0];
+			++name[1];
+			++name[2];
 
-	student_t* s1 = (student_t*)malloc(sizeof(student_t));
-	strcpy(s1->name, "ABC");
-	s1->score = 13;
-	s1->next = NULL;
+			score += 10;
+			students[i] = GetStudentMalloc(name, score);
+		}
 
-	student_t* s2 = (student_t*)malloc(sizeof(student_t));
-	strcpy(s2->name, "DEF");
-	s2->score = 22;
-	s2->next = NULL;
+		InsertFront(&studentList, students[0]);
+		InsertFront(&studentList, students[1]);
+		InsertFront(&studentList, students[2]);
+		InsertFront(&studentList, students[3]);
+		InsertFront(&studentList, students[4]);
 
-	student_t* s3 = (student_t*)malloc(sizeof(student_t));
-	strcpy(s3->name, "GHI");
-	s3->score = 33;
-	s3->next = NULL;
+		removeFront(&studentList);
+		removeFront(&studentList);
+		removeFront(&studentList);
+		removeFront(&studentList);
+		removeFront(&studentList);
+	}
 
-	student_t* s4 = (student_t*)malloc(sizeof(student_t));
-	strcpy(s4->name, "JKL");
-	s4->score = 44;
-	s4->next = NULL;
+	{
+		score = 0;
+		strcpy(name, "AAA");
+		for (int i = 0; i < 5; ++i)
+		{
+			++name[0];
+			++name[1];
+			++name[2];
 
-	student_t* s5 = (student_t*)malloc(sizeof(student_t));
-	strcpy(s5->name, "MNO");
-	s5->score = 55;
-	s5->next = NULL;
+			score += 10;
+			students[i] = GetStudentMalloc(name, score);
+		}
 
-	InsertLast(&studentList, s1);
-	InsertLast(&studentList, s2);
-	InsertLast(&studentList, s3);
-	InsertLast(&studentList, s4);
-	InsertLast(&studentList, s5);
+		InsertFront(&studentList, students[0]);
+		InsertFront(&studentList, students[1]);
+		InsertFront(&studentList, students[2]);
+		InsertFront(&studentList, students[3]);
+		InsertFront(&studentList, students[4]);
 
-	removeFront(&studentList);
-	removeLast(&studentList);
-	removeNode(&studentList, s3);
+		removeLast(&studentList);
+		removeLast(&studentList);
+		removeLast(&studentList);
+		removeLast(&studentList);
+		removeLast(&studentList);
+	}
+
+	{
+		score = 0;
+		strcpy(name, "AAA");
+		for (int i = 0; i < 5; ++i)
+		{
+			++name[0];
+			++name[1];
+			++name[2];
+
+			score += 10;
+			students[i] = GetStudentMalloc(name, score);
+		}
+
+		InsertFront(&studentList, students[0]);
+		InsertFront(&studentList, students[1]);
+		InsertFront(&studentList, students[2]);
+		InsertFront(&studentList, students[3]);
+		InsertFront(&studentList, students[4]);
+
+		Finalize(&studentList);
+	}
 
 	SaveData("studentInfo.txt", &studentList);
 
@@ -51,7 +105,7 @@ int main(void)
 	LoadData("studentInfo.txt", &srcStudentList);
 
 	PrintAll(&srcStudentList);
-	
+
 	Finalize(&studentList);
 	Finalize(&srcStudentList);
 

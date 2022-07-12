@@ -16,6 +16,8 @@ void Finalize(studentList_t* studentList)
 		free(phead);
 		phead = next;
 	}
+
+	memset(studentList, 0, sizeof(studentList_t)); // null ´ëÀÔ
 }
 
 void InsertLast(studentList_t* studentList, student_t* node)
@@ -39,36 +41,39 @@ void InsertFront(studentList_t* studentList, student_t* node)
 {
 	student_t** ppHead = &studentList->head;
 
-	if (ppHead == NULL)
+	if (*ppHead == NULL)
 	{
-		*ppHead = node;
-		studentList->lastNode = *ppHead;
+		studentList->lastNode = node;
 	}
-	else
-	{
-		student_t* temp = (*ppHead)->next;
-		(*ppHead)->next = node;
-		node->next = temp;
-	}
+
+	node->next = *ppHead;
+	*ppHead = node;
 }
 
 bool removeLast(studentList_t* studentList)
 {
 	student_t* pHead = studentList->head;
-	student_t* pLast = studentList->lastNode;
+	student_t** ppLast = &studentList->lastNode;
 
 	if (pHead == NULL)
 	{
 		return false;
 	}
+	if (pHead == *ppLast)
+	{
+		free(*ppLast);
+		memset(studentList, 0, sizeof(studentList_t));
 
-	while (pHead->next != pLast) {
+		return true;
+	}
+
+	while (pHead->next != *ppLast) {
 		pHead = pHead->next;
 	}
-		pHead->next = NULL;
+	pHead->next = NULL;
 
-	free(pLast);
-	pLast = pHead;
+	free(*ppLast);
+	*ppLast = pHead;
 
 	return true;
 }
@@ -82,31 +87,21 @@ bool removeFront(studentList_t* studentList)
 	{
 		return false;
 	}
+	if (*ppHead == studentList->lastNode)
+	{
+		free(*ppHead);
+		memset(studentList, 0, sizeof(studentList_t));
+
+		return true;
+	}
 
 	free(*ppHead);
 	*ppHead = next;
 
-	return true;
-}
-
-bool removeNode(studentList_t* studentList, student_t* node)
-{
-	student_t* pHead = studentList->head;
-
-	if (pHead == NULL)
-	{
-		return false;
-	}
-
-	while (pHead->next != node) {
-		pHead = pHead->next;
-	}
-	pHead->next = node->next;
-
-	free(node);
 
 	return true;
 }
+
 
 void PrintNode(const student_t* node)
 {

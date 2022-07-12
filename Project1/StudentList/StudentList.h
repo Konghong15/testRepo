@@ -25,7 +25,6 @@ void InsertFront(studentList_t* studentList, student_t* node); // O(1)
 
 bool removeLast(studentList_t* studentList);
 bool removeFront(studentList_t* studentList);
-bool removeNode(studentList_t* studentList, student_t* node);
 
 void PrintNode(const student_t* node);
 void PrintAll(const studentList_t* studentList);
