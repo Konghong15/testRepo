@@ -25,8 +25,8 @@ namespace dataStructure
 		void	PushFront(T element);
 		void	RemoveBack();
 		void	RemoveFront();
-		T		GetBack();
-		T		GetFront();
+		T	GetBack();
+		T	GetFront();
 		size_t	GetSize();
 		bool	IsEmpty();
 
