@@ -1,3 +1,7 @@
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+
 #include <cassert>
 #include <iostream>
 
@@ -18,9 +22,11 @@ int main()
 	TestQueue();
 	TestLinkedList();
 	TestLinkedList_v2();
+
+	_CrtDumpMemoryLeaks();
+
+	std::cin.get();
 }
-
-
 
 void TestStack()
 {
@@ -116,6 +122,15 @@ void TestLinkedList()
 	}
 
 	assert(list.IsEmpty());
+
+	for (int i = 1; i <= 10; ++i)
+	{
+		list.PushFront(i);
+		assert(list.GetFront() == i);
+		assert(list.GetSize() == i);
+	}
+
+	// 社瑚切 持失
 }
 
 void TestLinkedList_v2()
@@ -151,4 +166,13 @@ void TestLinkedList_v2()
 	}
 
 	assert(list.IsEmpty());
+
+	for (int i = 1; i <= 10; ++i)
+	{
+		list.PushFront(i);
+		assert(list.GetFront() == i);
+		assert(list.GetSize() == i);
+	}
+
+	// 社瑚切 持失
 }
