@@ -21,14 +21,14 @@ namespace dataStructure
 		LinkedList(const LinkedList&) = delete;
 		LinkedList& operator=(const LinkedList&) = delete;
 
-		void PushBack(T element);
-		void PushFront(T element);
-		void RemoveBack();
-		void RemoveFront();
-		T GetBack();
-		T GetFront();
-		size_t GetSize();
-		bool IsEmpty();
+		void	PushBack(T element);
+		void	PushFront(T element);
+		void	RemoveBack();
+		void	RemoveFront();
+		T		GetBack();
+		T		GetFront();
+		size_t	GetSize();
+		bool	IsEmpty();
 
 	private:
 		Node<T> mHead;

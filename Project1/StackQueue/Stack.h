@@ -14,13 +14,13 @@ namespace dataStructure
 		Stack(const Stack&) = delete;
 		Stack& operator=(const Stack&) = delete;
 
-		void Push(T element);
-		void Pop();
-		bool IsEmpty();
-		bool IsFull();
-		T GetTop();
-		size_t GetMaxSize();
-		size_t GetSize();
+		void	Push(T element);
+		void	Pop();
+		bool	IsEmpty();
+		bool	IsFull();
+		T		GetTop();
+		size_t	GetMaxSize();
+		size_t	GetSize();
 
 	private:
 		std::unique_ptr<T[]> mArray;

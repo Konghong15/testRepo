@@ -14,14 +14,14 @@ namespace dataStructure
 		Queue(const Queue&) = delete;
 		Queue& operator=(const Queue&) = delete;
 
-		void PushBack(T element);
-		void PopFront();
-		bool IsEmpty();
-		bool IsFull();
-		T GetFront();
-		T GetBack();
-		size_t GetMaxSize();
-		size_t GetSize();
+		void	PushBack(T element);
+		void	PopFront();
+		bool	IsEmpty();
+		bool	IsFull();
+		T		GetFront();
+		T		GetBack();
+		size_t	GetMaxSize();
+		size_t	GetSize();
 
 	private:
 		std::unique_ptr<T[]> mArray;
