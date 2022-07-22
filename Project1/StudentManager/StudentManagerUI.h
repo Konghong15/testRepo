@@ -1,12 +1,20 @@
 #pragma once
 
+#include <iostream>
+#include <iomanip>
+
 #include "StudentManager.h"
 
 namespace studentManager
 {
-	class StudentManagerUI
+	class StudentManagerUI final
 	{
-		StudentManagerUI();
+	public:
+		StudentManagerUI() = default;
+		~StudentManagerUI() = default;
+		StudentManagerUI(const StudentManagerUI&) = delete;
+		StudentManagerUI& operator=(const StudentManagerUI&) = delete;
+
 		void run();
 
 
