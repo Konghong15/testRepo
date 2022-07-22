@@ -7,7 +7,7 @@
 #include <string>
 
 
-namespace assignment1
+namespace studentManager
 {
 	class StudentManager;
 

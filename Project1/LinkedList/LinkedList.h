@@ -8,8 +8,8 @@ namespace dataStructure
 	struct Node
 	{
 		T Data;
-		Node<T>* NextPtr;
-		Node<T>* PrevPtr;
+		Node* NextPtr;
+		Node* PrevPtr;
 	};
 
 	template <typename T>
@@ -21,14 +21,18 @@ namespace dataStructure
 		LinkedList(const LinkedList&) = delete;
 		LinkedList& operator=(const LinkedList&) = delete;
 
-		virtual void PushBack(T element);
-		virtual void PushFront(T element);
-		virtual void RemoveBack();
-		virtual void RemoveFront();
-		virtual T GetBack();
-		virtual T GetFront();
+		void PushBack(T element);
+		void PushFront(T element);
+		void RemoveBack();
+		void RemoveFront();
+		T GetBack();
+		T GetFront();
 		size_t GetSize();
 		bool IsEmpty();
+
+	protected:
+		virtual Node<T>* getNodeMalloc();
+		virtual void deleteNode(Node<T>*);
 
 	protected:
 		Node<T> mHead;
@@ -55,7 +59,7 @@ namespace dataStructure
 		{
 			Node<T>* pNext = pNode->NextPtr;
 
-			free(pNode);
+			deleteNode(pNode);
 
 			pNode = pNext;
 		}
@@ -66,7 +70,7 @@ namespace dataStructure
 	{
 		Node<T>* pPrevNode = mTail.PrevPtr;
 
-		Node<T>* paNode = new Node<T>;
+		Node<T>* paNode = getNodeMalloc();
 		paNode->Data = element;
 
 		mTail.PrevPtr = paNode;
@@ -83,7 +87,7 @@ namespace dataStructure
 	{
 		Node<T>* pNextNode = mHead.NextPtr;
 
-		Node<T>* paNode = new Node<T>;
+		Node<T>* paNode = getNodeMalloc();
 		paNode->Data = element;
 
 		mHead.NextPtr = paNode;
@@ -108,7 +112,7 @@ namespace dataStructure
 		mTail.PrevPtr = pPrevNode->PrevPtr;
 		pPrevNode->PrevPtr->NextPtr = &mTail;
 
-		delete pPrevNode;
+		deleteNode(pPrevNode);
 		--mSize;
 	}
 
@@ -125,7 +129,7 @@ namespace dataStructure
 		mHead.NextPtr = pNextNode->NextPtr;
 		pNextNode->NextPtr->PrevPtr = &mHead;
 
-		delete pNextNode;
+		deleteNode(pNextNode);
 		--mSize;
 	}
 
@@ -155,5 +159,17 @@ namespace dataStructure
 	bool LinkedList<T>::IsEmpty()
 	{
 		return mSize == 0;
+	}
+
+	template <typename T>
+	Node<T>* LinkedList<T>::getNodeMalloc()
+	{
+		return new Node<T>;
+	}
+
+	template <typename T>
+	void LinkedList<T>::deleteNode(Node<T>* node)
+	{
+		delete node;
 	}
 }

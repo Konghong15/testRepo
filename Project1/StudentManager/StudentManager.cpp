@@ -3,7 +3,7 @@
 #include <memory>
 #include <string>
 
-namespace assignment1
+namespace studentManager
 {
 	std::ostream& operator<<(std::ostream& out, const StudentManager& rhs)
 	{

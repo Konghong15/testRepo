@@ -1,16 +1,30 @@
 #include "Student.h"
 #include "LinkedList.h"
 
+void throwzz()
+{
+	throw;
+}
+
 int main(void)
 {
 	using namespace std;
-	using namespace assignment1;
-
-	Student s1("aaa", 20, 30, 40);
-	Student s2("bbb", 20, 30, 40);
-
-	s1 = s2;
-	cout << s1 << s2;
+	using namespace studentManager;
 	
+	try
+	{
+		throwzz();
+	}
+	catch (int exception)
+	{
+		cout << exception << endl;
+	}
+	catch (...)
+	{
+		cout << "hh" << endl;
+	}
+
+	cin.get();
+
 	return 0;
 }

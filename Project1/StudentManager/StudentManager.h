@@ -6,7 +6,7 @@
 #include "LinkedList.h"
 #include "Student.h"
 
-namespace assignment1
+namespace studentManager
 {
 	enum eLoadType
 	{

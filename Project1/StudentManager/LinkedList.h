@@ -4,7 +4,7 @@
 
 #include "Node.h"
 
-namespace assignment1
+namespace studentManager
 {
 	template <typename T>
 	class LinkedList

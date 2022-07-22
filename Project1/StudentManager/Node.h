@@ -1,6 +1,6 @@
 #pragma once
 
-namespace assignment1
+namespace studentManager
 {
 	template <typename T>
 	struct Node

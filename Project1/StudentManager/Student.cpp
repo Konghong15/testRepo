@@ -1,6 +1,6 @@
 #include "Student.h"
 
-namespace assignment1
+namespace studentManager
 {
 	std::ostream& operator<<(std::ostream& out, const Student& student)
 	{
