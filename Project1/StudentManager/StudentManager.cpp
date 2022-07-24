@@ -173,9 +173,6 @@ namespace studentManager
 			return false;
 		}
 
-		size_t size;
-		fin.read(reinterpret_cast<char*>(&size), sizeof(size_t));
-
 		if (loadType == eLoadType::LOAD_OVERWRITE)
 		{
 			mStudents.Clear();

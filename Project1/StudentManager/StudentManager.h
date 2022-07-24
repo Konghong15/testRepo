@@ -14,13 +14,15 @@ namespace studentManager
 		DESC_AVERAGE,
 		DESC_KOR,
 		DESC_ENG,
-		DESC_MATH
+		DESC_MATH,
+		COUNT
 	};
 
 	enum class eLoadType
 	{
 		LOAD_APPEND,
-		LOAD_OVERWRITE
+		LOAD_OVERWRITE,
+		COUNT
 	};
 
 	class StudentManager

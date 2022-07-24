@@ -106,13 +106,13 @@ namespace studentManager
 	void StudentManagerUI::printTitle()
 	{
 		cout << right;
-		cout << '+' << setfill('-') << setw(SPACE_SIZE) << '+' << endl;
-		cout << '+' << setfill(' ') << setw(SPACE_SIZE) << '+' << endl;
-		cout << '+' << setw(SPACE_SIZE) << '+' << endl;
-		cout << '+' << setw(CENTER_SIZE) << "성적 관리 프로그램" << setw(SPACE_SIZE - CENTER_SIZE) << '+' << endl;
-		cout << '+' << setw(SPACE_SIZE) << '+' << endl;
-		cout << '+' << setw(SPACE_SIZE) << '+' << endl;
-		cout << right << '+' << setfill('-') << setw(SPACE_SIZE) << '+' << endl;
+		cout << '+' << setfill('-') << setw(TOTAL_SPACE_SIZE) << '+' << endl;
+		cout << '+' << setfill(' ') << setw(TOTAL_SPACE_SIZE) << '+' << endl;
+		cout << '+' << setw(TOTAL_SPACE_SIZE) << '+' << endl;
+		cout << '+' << setw(CENTER_SIZE) << "성적 관리 프로그램" << setw(TOTAL_SPACE_SIZE - CENTER_SIZE) << '+' << endl;
+		cout << '+' << setw(TOTAL_SPACE_SIZE) << '+' << endl;
+		cout << '+' << setw(TOTAL_SPACE_SIZE) << '+' << endl;
+		cout << right << '+' << setfill('-') << setw(TOTAL_SPACE_SIZE) << '+' << endl;
 	}
 
 	void StudentManagerUI::printSelection()
@@ -132,9 +132,9 @@ namespace studentManager
 		cout << setw(5) << '+';
 		cout << setw(WORD_INTERVAL - 1) << "[8] Finalize" << setw(WORD_INTERVAL * 3) << ' ' << " +" << endl;
 
-		cout << setw(SPACE_SIZE) << '+' << '+' << endl;
+		cout << setw(TOTAL_SPACE_SIZE) << '+' << '+' << endl;
 		cout << setw(25) << '+' << setw(64) << "원하는 기능의 번호를 입력해주세요" << '+' << endl;
-		cout << right << '+' << setfill('-') << setw(SPACE_SIZE) << '+' << endl;
+		cout << right << '+' << setfill('-') << setw(TOTAL_SPACE_SIZE) << '+' << endl;
 	}
 
 	int StudentManagerUI::getUserInput()
@@ -168,7 +168,7 @@ namespace studentManager
 		cout << setw(10) << '+' << setw(79) << "이름은 항상 3자리로 적용됩니다." << '+' << endl;
 		cout << setw(10) << '+' << setw(79) << "<이름> <국어 성적> <영어 성적> <수학 성적>" << '+' << endl;
 		cout << setw(10) << '+' << setw(79) << "예시) kgc 23 32 45" << '+' << endl;
-		cout << setfill('-') << setw(SPACE_SIZE) << '+' << '+' << endl;
+		cout << setfill('-') << setw(TOTAL_SPACE_SIZE) << '+' << '+' << endl;
 
 		char name[4];
 		size_t kor;
@@ -193,7 +193,7 @@ namespace studentManager
 				cout << "잘못된 입력입니다. 서식에 맞추어 다시 입력해주세요" << endl;
 				cin.get();
 			}
-			else if (kor > 100 || eng >> 100 || math >> 100)
+			else if (kor > 100 || eng > 100 || math > 100)
 			{
 				cout << "학생의 최고 성적은 100점입니다. 다시 입력해주세요" << endl;
 				cin.get();
@@ -213,7 +213,7 @@ namespace studentManager
 		cout << left << setfill(' ');
 		cout << setw(10) << '+' << setw(79) << "삭제할 학생 번호를 입력해주세요" << '+' << endl;
 		cout << setw(10) << '+' << setw(79) << "범위를 넘어선 값을 입력할 시 마지막 학생이 삭제됩니다." << '+' << endl;
-		cout << setfill('-') << setw(SPACE_SIZE) << '+' << '+' << endl;
+		cout << setfill('-') << setw(TOTAL_SPACE_SIZE) << '+' << '+' << endl;
 
 		cout << "엔터 키를 누르면 학생 목록이 출력됩니다." << endl;
 		cin.get();
@@ -230,7 +230,7 @@ namespace studentManager
 	{
 		cout << left << setfill(' ');
 		cout << setw(10) << '+' << setw(79) << "검색을 원하는 학생의 이름을 입력해주세요" << '+' << endl;
-		cout << setfill('-') << setw(SPACE_SIZE) << '+' << '+' << endl;
+		cout << setfill('-') << setw(TOTAL_SPACE_SIZE) << '+' << '+' << endl;
 
 		char name[4];
 		cin >> setw(4) >> name;
@@ -253,12 +253,12 @@ namespace studentManager
 			<< setw(WORD_INTERVAL) << "[5] 국어 내림차순"
 			<< setw(WORD_INTERVAL) << "[6] 영어 내림차순"
 			<< setw(WORD_INTERVAL) << "[7] 수학 내림차순" << " +" << endl;
-		cout << setw(SPACE_SIZE) << '+' << '+' << endl;
+		cout << setw(TOTAL_SPACE_SIZE) << '+' << '+' << endl;
 		cout << setw(25) << '+' << setw(64) << "원하는 정렬 방식을 설정 입력해주세요" << '+' << endl;
-		cout << setfill('-') << setw(SPACE_SIZE) << '+' << '+' << endl;
+		cout << setfill('-') << setw(TOTAL_SPACE_SIZE) << '+' << '+' << endl;
 
 		size_t number = getUserInput();
-		while (number > 8)
+		while (number >= static_cast<size_t>(eSortingType::COUNT))
 		{
 			cout << "범위 내의 값을 입력해주세요" << endl;
 			number = getUserInput();
@@ -305,7 +305,7 @@ namespace studentManager
 		char fileName[21];
 		cout << left << setfill(' ');
 		cout << setw(25) << '+' << setw(64) << "저장할 파일 명을 입력해주세요 (20자까지 가능합니다)" << '+' << endl;
-		cout << setfill('-') << setw(SPACE_SIZE) << '+' << '+' << endl;
+		cout << setfill('-') << setw(TOTAL_SPACE_SIZE) << '+' << '+' << endl;
 
 		cin >> setw(21) >> fileName;
 		mStudentManager.saveFile(fileName);
@@ -319,14 +319,14 @@ namespace studentManager
 		cout << left << setfill(' ');
 		cout << setw(25) << '+' << setw(64) << "불러올 파일 명을 입력해주세요" << '+' << endl;
 		cout << setw(25) << '+' << setw(64) << "불러오기 옵션 [0] 이어 붙이기 [1] 덮어 쓰기" << '+' << endl;
-		cout << setfill('-') << setw(SPACE_SIZE) << '+' << '+' << endl;
+		cout << setfill('-') << setw(TOTAL_SPACE_SIZE) << '+' << '+' << endl;
 
 		cout << "파일 명 :";
 		cin >> setw(21) >> fileName;
 
 		cout << "불러오기 옵션 :";
 		size_t number = getUserInput();
-		while (number > 1)
+		while (number >= static_cast<size_t>(eLoadType::COUNT))
 		{
 			cout << "범위 내의 값을 입력해주세요" << endl;
 
@@ -351,7 +351,7 @@ namespace studentManager
 	{
 		cout << left << setfill(' ');
 		cout << setw(25) << '+' << setw(64) << "랜덤 데이터 10개를 추가합니다" << '+' << endl;
-		cout << setfill('-') << setw(SPACE_SIZE) << '+' << '+' << endl;
+		cout << setfill('-') << setw(TOTAL_SPACE_SIZE) << '+' << '+' << endl;
 
 		srand(time(NULL));
 		char name[4] = "tp0";

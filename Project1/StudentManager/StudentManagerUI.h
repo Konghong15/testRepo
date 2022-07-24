@@ -14,7 +14,8 @@ namespace studentManager
 		SAVE_STUDNET,
 		LOAD_STUDENT,
 		CREATE_RANDOM_DATA,
-		Finalize
+		Finalize,
+		COUNT
 	};
 
 	class StudentManagerUI final
@@ -42,7 +43,7 @@ namespace studentManager
 		void finalize();
 
 	private:
-		enum { SPACE_SIZE = 89 };
+		enum { TOTAL_SPACE_SIZE = 89 };
 		enum { CENTER_SIZE = 50 };
 		enum { WORD_INTERVAL = 21 };
 		StudentManager mStudentManager;
