@@ -1,14 +1,23 @@
 #pragma once
 
-#include <iostream>
-#include <fstream>
-
 #include "LinkedList.h"
 #include "Student.h"
 
 namespace studentManager
 {
-	enum eLoadType
+	enum class eSortingType
+	{
+		ASC_AVERAGE,
+		ASC_KOR,
+		ASC_ENG,
+		ASC_MATH,
+		DESC_AVERAGE,
+		DESC_KOR,
+		DESC_ENG,
+		DESC_MATH
+	};
+
+	enum class eLoadType
 	{
 		LOAD_APPEND,
 		LOAD_OVERWRITE
@@ -25,11 +34,12 @@ namespace studentManager
 		StudentManager(const StudentManager&) = delete;
 		StudentManager& operator=(const StudentManager&) = delete;
 
+		void Search(const char name[4]);
 		void Push(Student student); // insert last
 		void Push(size_t index, Student student);
-		void Pop(size_t index);
+		void Remove(size_t index);
 		void finalize();
-		void SortAverage();
+		void Sort(eSortingType sortingType);
 
 		bool saveFile(const char* fileName);
 		bool LoadFile(const char* fileName, eLoadType loadType);

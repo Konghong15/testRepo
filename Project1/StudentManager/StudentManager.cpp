@@ -1,5 +1,8 @@
 #include "StudentManager.h"
 
+#include <fstream>
+#include <iostream>
+#include <iomanip>
 #include <memory>
 #include <string>
 
@@ -9,24 +12,52 @@ namespace studentManager
 	{
 		using namespace std;
 
-		out << setw(10) << "Name"
-			<< setw(10) << "Korean"
-			<< setw(10) << "English"
-			<< setw(10) << "Math"
-			<< setw(10) << "Total"
-			<< setw(10) << "Average" << endl;
+		out << right << setfill(' ');
+		out << setw(12) << "번호"
+			<< setw(13) << "Name"
+			<< setw(13) << "Korean"
+			<< setw(13) << "English"
+			<< setw(13) << "Math"
+			<< setw(13) << "Total"
+			<< setw(13) << "Average" << endl;
 
 		std::shared_ptr<Node<Student>> begin = rhs.mStudents.GetBegin();
 		std::shared_ptr<Node<Student>> end = rhs.mStudents.GetEnd();
 		std::shared_ptr<Node<Student>> cur = begin->Next;
-		
+
+		size_t index = 0;
 		while (cur != end)
 		{
-			out << cur->Data;
+			out << setw(12) << index++ << cur->Data;
 			cur = cur->Next;
 		}
 
 		return out;
+
+	}
+	void StudentManager::Search(const char name[4])
+	{
+		std::shared_ptr<Node<Student>> begin = mStudents.GetBegin();
+		std::shared_ptr<Node<Student>> end = mStudents.GetEnd();
+		std::shared_ptr<Node<Student>> cur = begin->Next;
+
+		std::cout << std::left << std::setfill(' ');
+		bool isFind = false;
+		size_t index = 0;
+		while (cur != end)
+		{
+			if (strncmp((cur->Data).mName, name, 4) == 0)
+			{
+				std::cout << std::setw(10) << index++ << cur->Data;
+				isFind = true;
+			}
+			cur = cur->Next;
+		}
+
+		if (!isFind)
+		{
+			std::cout << "일치하는 학생이 없습니다" << std::endl;
+		}
 	}
 
 	void StudentManager::Push(Student student)
@@ -39,7 +70,7 @@ namespace studentManager
 		mStudents.PushBack(index, student);
 	}
 
-	void StudentManager::Pop(size_t index)
+	void StudentManager::Remove(size_t index)
 	{
 		mStudents.RemoveBack(index);
 	}
@@ -48,8 +79,8 @@ namespace studentManager
 	{
 		mStudents.Clear();
 	}
-
-	void StudentManager::SortAverage()
+	
+	void StudentManager::Sort(eSortingType sortingType)
 	{
 		std::shared_ptr<Node<Student>> begin = mStudents.GetBegin();
 		std::shared_ptr<Node<Student>> end = mStudents.GetEnd();
@@ -58,22 +89,49 @@ namespace studentManager
 
 		while (cur != end)
 		{
-			Student* minAverageStudent = &(cur->Data);
-			
-			tempCur = begin->Next;
+			Student* selectStudent = &(cur->Data);
+
+			tempCur = cur->Next;
 			while (tempCur != end)
 			{
 				Student* curStudent = &(tempCur->Data);
 
-				if (minAverageStudent->GetAverage() > curStudent->GetAverage())
+				switch (sortingType)
 				{
-					minAverageStudent = curStudent;
+				case eSortingType::ASC_AVERAGE:
+					selectStudent = selectStudent->GetAverage() > curStudent->GetAverage() ? curStudent : selectStudent;
+					break;
+				case eSortingType::ASC_KOR:
+					selectStudent = selectStudent->mKorean > curStudent->mKorean ? curStudent : selectStudent;
+					break;
+				case eSortingType::ASC_ENG:
+					selectStudent = selectStudent->mEnglish > curStudent->mEnglish ? curStudent : selectStudent;
+					break;
+				case eSortingType::ASC_MATH:
+					selectStudent = selectStudent->mMath > curStudent->mMath ? curStudent : selectStudent;
+					break;
+				case eSortingType::DESC_AVERAGE:
+					selectStudent = selectStudent->GetAverage() < curStudent->GetAverage() ? curStudent : selectStudent;
+					break;
+				case eSortingType::DESC_KOR:
+					selectStudent = selectStudent->mKorean < curStudent->mKorean ? curStudent : selectStudent;
+					break;
+				case eSortingType::DESC_ENG:
+					selectStudent = selectStudent->mEnglish < curStudent->mEnglish ? curStudent : selectStudent;
+					break;
+				case eSortingType::DESC_MATH:
+					selectStudent = selectStudent->mMath < curStudent->mMath ? curStudent : selectStudent;
+					break;
+				default:
+					_ASSERT(false);
+					break;
 				}
+				tempCur = tempCur->Next;
 			}
 
 			Student temp = cur->Data;
-			cur->Data = *minAverageStudent;
-			*minAverageStudent = temp;
+			cur->Data = *selectStudent;
+			*selectStudent = temp;
 
 			cur = cur->Next;
 		}
@@ -118,7 +176,7 @@ namespace studentManager
 		size_t size;
 		fin.read(reinterpret_cast<char*>(&size), sizeof(size_t));
 
-		if (loadType == LOAD_OVERWRITE)
+		if (loadType == eLoadType::LOAD_OVERWRITE)
 		{
 			mStudents.Clear();
 		}
@@ -131,10 +189,7 @@ namespace studentManager
 		{
 			Student student;
 
-			fin.read(reinterpret_cast<char*>(&(student.mKorean)), sizeof(Student));
-			fin.read(reinterpret_cast<char*>(&(student.mEnglish)), sizeof(Student));
-			fin.read(reinterpret_cast<char*>(&(student.mMath)), sizeof(Student));
-			fin.read(reinterpret_cast<char*>(&(student.mName)), sizeof(char) * 4);
+			fin.read(reinterpret_cast<char*>(&(student)), sizeof(Student));
 
 			mStudents.PushBack(student);
 		}

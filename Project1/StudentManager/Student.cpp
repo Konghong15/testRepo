@@ -1,3 +1,9 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <iostream>
+#include <iomanip>
+#include <string>
+
 #include "Student.h"
 
 namespace studentManager
@@ -11,12 +17,12 @@ namespace studentManager
 		unsigned int math = student.mMath;
 		unsigned int total = kor + eng + math;
 
-		out << std::setw(10) << student.mName
-			<< std::setw(10) << kor
-			<< std::setw(10) << eng
-			<< std::setw(10) << math
-			<< std::setw(10) << total
-			<< std::setw(10) << total / SUBJECT_COUNT << std::endl;
+		out << std::setw(13) << student.mName
+			<< std::setw(13) << kor
+			<< std::setw(13) << eng
+			<< std::setw(13) << math
+			<< std::setw(13) << total
+			<< std::setw(13) << total / SUBJECT_COUNT << std::endl;
 
 		return out;
 	}

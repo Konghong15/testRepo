@@ -1,12 +1,22 @@
 #pragma once
 
-#include <iostream>
-#include <iomanip>
-
 #include "StudentManager.h"
 
 namespace studentManager
 {
+	enum class eUserRequest
+	{
+		PRINT_ALL,
+		ADD_STUENT,
+		REMOVE_STUDENT,
+		SEARCH_STUDENT,
+		SORT_STUDENT,
+		SAVE_STUDNET,
+		LOAD_STUDENT,
+		CREATE_RANDOM_DATA,
+		Finalize
+	};
+
 	class StudentManagerUI final
 	{
 	public:
@@ -15,10 +25,26 @@ namespace studentManager
 		StudentManagerUI(const StudentManagerUI&) = delete;
 		StudentManagerUI& operator=(const StudentManagerUI&) = delete;
 
-		void run();
-
+		void Run();
 
 	private:
+		void printTitle();
+		void printSelection();
+		int getUserInput();
+
+		void addStudent();
+		void removeStudent();
+		void searchStudent();
+		void sortStudents();
+		void saveStudents();
+		void loadStudents();
+		void createRandomData();
+		void finalize();
+
+	private:
+		enum { SPACE_SIZE = 89 };
+		enum { CENTER_SIZE = 50 };
+		enum { WORD_INTERVAL = 21 };
 		StudentManager mStudentManager;
 	};
 }
